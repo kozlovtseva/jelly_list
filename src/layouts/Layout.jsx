@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch, Redirect, useHistory } from "react-router-dom";
 
 import { useMutation } from "urql";
+
+import { setToken, removeToken, isAuthenticated } from "../utils/auth";
 
 import Auth from "../pages/Auth";
 import Main from "../pages/Main";
@@ -16,21 +18,32 @@ const logIn = `
 `;
 
 const Layout = () => {
-    const [isAuthed, setAuthed] = useState(false);
     const [name, setName] = useState("");
+
     const [result, executeQuery] = useMutation(logIn);
+
+    const history = useHistory();
+
     const sendRequest = (userName, password) => {
         const variables = { userName, password };
         executeQuery(variables).then((res) => {
             //обработка ответа
-            setName(userName);
-            setAuthed(true);
             console.log(result);
+            authUser(userName);
         });
     };
-    const app = isAuthed ? (
+    const authUser = (userName) => {
+        setName(userName);
+        setToken("some_token");
+        history.push("/");
+    };
+    const logOut = () => {
+        removeToken();
+        history.push("/login");
+    };
+    const app = isAuthenticated() ? (
         <Route path="/">
-            <Main name={name} />
+            <Main logOut={logOut} name={name} />
         </Route>
     ) : (
         <Route path="/">
