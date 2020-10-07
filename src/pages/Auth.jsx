@@ -69,7 +69,6 @@ const Button = styled.button`
     color: #fff;
     cursor: pointer;
     height: 30px;
-    outline: none:
     transition: box-shadow 0.2s ease, background-color 0.2s ease;
     width: 80px;
     &:hover {
@@ -80,7 +79,9 @@ const Button = styled.button`
         background-color: #a1335e;
         box-shadow: 0 0 0 rgba(0, 0, 0, 0.25);
     }
-    &:focus {outline:0;}
+    &:focus {
+        outline: 0;
+    }
 `;
 
 export default Auth;
