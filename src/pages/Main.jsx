@@ -44,7 +44,7 @@ const Main = (props) => {
                 <Button onClick={() => props.logOut()}>log out</Button>
             </ButtonWrapper>
             <Container>
-                <Title>The Sweetest List For You, {props.name}</Title>
+                <Title>The Sweetest List For You</Title>
                 <JellyList list={list} />
             </Container>
         </Wrapper>

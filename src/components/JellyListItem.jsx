@@ -1,10 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import styled from "styled-components";
 
 const JellyListItem = (props) => {
     return (
         <Container>
+            <Link to={`/${props.item.name}`} />
             <Image
                 alt={props.item.name}
                 src={require(`../images/${props.item.image}`)}
@@ -23,7 +25,21 @@ const Container = styled.li`
     flex-wrap: wrap;
     justify-content: center;
     margin-bottom: 40px;
+    padding: 10px;
+    position: relative;
+    &:hover {
+        background: rgba(241, 68, 135, 0.1);
+        border-radius: 7px;
+        cursor: pointer;
+    }
+    & a {
+        display: block;
+        height: 100%;
+        position: absolute;
+        width: 100%;
+    }
 `;
+
 const Image = styled.img`
     border-radius: 7px;
     height: 185px;

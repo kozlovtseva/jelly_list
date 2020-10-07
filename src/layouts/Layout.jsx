@@ -8,6 +8,7 @@ import { setToken, removeToken, isAuthenticated } from "../utils/auth";
 
 import Auth from "../pages/Auth";
 import Main from "../pages/Main";
+import Info from "../components/Info";
 
 const logIn = `
   mutation ($userName: String!, $password: String!) {
@@ -19,7 +20,6 @@ const logIn = `
 
 const Layout = () => {
     const [isAuthed, setAuthed] = useState(isAuthenticated);
-    const [name, setName] = useState("");
 
     const [result, executeQuery] = useMutation(logIn);
 
@@ -31,7 +31,7 @@ const Layout = () => {
             executeQuery(variables).then((res) => {
                 //обработка ответа
                 console.log(result);
-                authUser(userName);
+                authUser();
             });
         } else {
             alert("Please, enter name and password");
@@ -40,8 +40,7 @@ const Layout = () => {
     const checkAuth = (userName, password) => {
         return userName.length > 0 && password.length > 0 ? true : false;
     };
-    const authUser = (userName) => {
-        setName(userName);
+    const authUser = () => {
         setToken("some_token");
         setAuthed(true);
         history.push("/");
@@ -51,11 +50,14 @@ const Layout = () => {
         history.push("/login");
     };
     const app = isAuthed ? (
-        <Route path="/">
-            <Main logOut={logOut} name={name} />
-        </Route>
+        <Switch>
+            <Route path="/:id" component={Info} />
+            <Route path="/">
+                <Main logOut={logOut} />
+            </Route>
+        </Switch>
     ) : (
-        <Route path="/">
+        <Route exact path="/">
             <Redirect to="/login" />
         </Route>
     );
