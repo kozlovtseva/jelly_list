@@ -1,3 +1,11 @@
+# jelly_list
+A simple list on React with QraphQl auth
+
+## How to run
+### `npm i`
+### `yarn start`
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
